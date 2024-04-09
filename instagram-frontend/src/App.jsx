@@ -1,8 +1,9 @@
 import Authentication from "./Pages/Authentication";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
 
 
-function App() {
+const App=()=> {
   return (
     <BrowserRouter>
       <Routes>
