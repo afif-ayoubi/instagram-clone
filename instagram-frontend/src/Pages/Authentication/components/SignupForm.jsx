@@ -1,18 +1,19 @@
 import React, { useState } from "react";
-import "../";
 
 const SignupForm = () => {
-  const [credentials, setCredentials] =
-    useState[{ email: "", username: "", password: "" }];
+  const [credentials, setCredentials] = useState({ email: "", username: "", password: "" });
+
   const handleFieldChange = (fieldName) => (e) => {
     setCredentials((prevCredentials) => ({
       ...prevCredentials,
       [fieldName]: e.target.value,
     }));
   };
+
   const handleSignup = () => {
     console.log("Signing up with:", credentials);
-  }
+  };
+
   return (
     <div className="signup">
       <img
@@ -26,7 +27,7 @@ const SignupForm = () => {
       />
       <input
         onChange={handleFieldChange('username')}
-        type="email"
+        type="text"
         placeholder="Username"
       />
       <input

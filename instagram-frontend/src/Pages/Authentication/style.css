@@ -87,6 +87,7 @@
   cursor: pointer;
 }
 .signup {
+  width: 300px;
   display: flex;
   flex-direction: column;
   border: 1px solid grey;
@@ -107,7 +108,7 @@
   border: 1px solid grey;
   border-radius: 3px;
   padding: 12px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   color: white;
 }
 
