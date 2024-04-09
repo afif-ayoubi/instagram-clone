@@ -1,6 +1,5 @@
 import Authentication from "./Pages/Authentication";
-import SideNav from "./Components/SideNav";
-
+import Home from "./Pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 
@@ -10,7 +9,7 @@ const App=()=> {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Authentication />} />
-        <Route path="/home" element={<SideNav />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );
