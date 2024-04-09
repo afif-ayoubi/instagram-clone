@@ -1,0 +1,127 @@
+.authenticate {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0px 50px 0px 50px;
+  }
+  
+  .auth__left {
+    flex: 0.5;
+    text-align: center;
+  }
+  
+  .auth__right {
+    flex: 0.5;
+  }
+  
+  .auth__left > img {
+    width: 400px;
+    margin-top: 40px;
+  }
+  
+  .auth__more {
+    border: 1px solid grey;
+    padding: 20px;
+    margin-right: 30px;
+    margin-left: 30px;
+    margin-top: 13px;
+    text-align: center;
+  }
+  
+  .auth__more > span {
+    font-weight: 500;
+    font-size: 14px;
+  }
+  
+  .auth__more > span > button {
+    background: 0;
+    border: 0;
+    font-weight: bolder;
+    color: #0095f6;
+  }
+  
+  .auth__more > span > button:hover {
+    cursor: pointer;
+  }
+.login {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid grey;
+    padding: 50px;
+    margin-right: 30px;
+    margin-left: 30px;
+  }
+  
+  .login > img {
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+  }
+  
+  .login > input {
+    background-color: #ffffff24;
+    border: 1px solid grey;
+    border-radius: 3px;
+    padding: 12px;
+    margin-bottom: 10px;
+    color: white;
+  }
+  
+  .login > input:focus {
+    outline: 1px solid grey;
+  }
+  
+  .login > button {
+    padding: 12px;
+    border-radius: 8px;
+    border: 0;
+    font-weight: bolder;
+    color: white;
+    background-color: #0095f6;
+  }
+  
+  .login > button:hover {
+    cursor: pointer;
+  }
+  .signup {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid grey;
+    padding: 50px;
+    margin-right: 30px;
+    margin-left: 30px;
+  }
+  
+  .signup > img {
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+  }
+  
+  .signup > input {
+    background-color: #ffffff24;
+    border: 1px solid grey;
+    border-radius: 3px;
+    padding: 12px;
+    margin-bottom: 10px;
+    color: white;
+  }
+  
+  .signup > input:focus {
+    outline: 1px solid grey;
+  }
+  
+  .signup > button {
+    padding: 12px;
+    border-radius: 8px;
+    border: 0;
+    font-weight: bolder;
+    color: white;
+    background-color: #0095f6;
+  }
+  
+  .signup > button:hover {
+    cursor: pointer;
+  }
