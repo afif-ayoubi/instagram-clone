@@ -7,7 +7,7 @@ const Authentication = () => {
   const [active, setActive] = useState("login");
 
   const handleChange = () => {
-    setActive((prevActive) => (prevActive === "login" ? "signup" : "login"));
+    setActive((prev) => (prev === "login" ? "signup" : "login"));
   };
 
   return (
@@ -30,8 +30,7 @@ const Authentication = () => {
               </>
             ) : (
               <>
-                Have an account?{" "}
-                <button onClick={handleChange}>Log in</button>
+                Have an account? <button onClick={handleChange}>Log in</button>
               </>
             )}
           </span>

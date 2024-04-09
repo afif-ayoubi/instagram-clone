@@ -13,7 +13,7 @@ function Post({ user, postImage, likes, timestamp }) {
       <div className="post__header">
         <div className="post__headerAuthor">
           <Avatar style={{ marginRight: "10px" }}>
-            {user.chartAt(0).toUpperCase()}
+            {user.charAt(0).toUpperCase()}
           </Avatar>{" "}
           {user} • <span>{timestamp}</span>
         </div>
