@@ -2,9 +2,9 @@ import Authentication from "./Pages/Authentication";
 import Home from "./Pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
+import "./utilities.css";
 
-
-const App=()=> {
+const App = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -13,6 +13,6 @@ const App=()=> {
       </Routes>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

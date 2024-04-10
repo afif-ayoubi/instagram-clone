@@ -2,7 +2,7 @@ import { Avatar } from "@mui/material";
 import React from "react";
 import "./style.css";
 
-function Suggestions() {
+const Suggestions=()=> {
   return (
     <div className="suggestions">
       <div className="suggestions__title">Suggestions for you</div>
