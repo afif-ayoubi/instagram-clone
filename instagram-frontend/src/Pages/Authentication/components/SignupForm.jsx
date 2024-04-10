@@ -1,16 +1,47 @@
 import React, { useState } from "react";
 
 const SignupForm = () => {
-  const [credentials, setCredentials] = useState({ email: "", username: "", password: "" });
-
+  const [credentials, setCredentials] = useState({
+    email: "",
+    username: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState({
+    email: "",
+    username: "",
+    password: "",
+  });
   const handleFieldChange = (fieldName) => (e) => {
     setCredentials((prevCredentials) => ({
       ...prevCredentials,
       [fieldName]: e.target.value,
     }));
+    setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: "" }));
   };
 
   const handleSignup = () => {
+    let formValid = true;
+    const newErrors = {};
+    if (credentials.email.trim() === "") {
+      newErrors.email = "Please enter your email.";
+      formValid = false;
+    }
+    if (!credentials.email.includes("@")) {
+      newErrors.email = "Please enter a valid email";
+      formValid = false;
+    }
+    if (credentials.username.trim() === "") {
+      newErrors.username = "Please enter your username.";
+      formValid = false;
+    }
+    if (credentials.password.trim() === "") {
+      newErrors.password = "Please enter your password.";
+      formValid = false;
+    }
+    if (!formValid) {
+      setErrors(newErrors);
+      return;
+    }
     console.log("Signing up with:", credentials);
   };
 
@@ -21,20 +52,23 @@ const SignupForm = () => {
         alt=""
       />
       <input
-        onChange={handleFieldChange('email')}
-        type="email"
-        placeholder="Email"
-      />
-      <input
-        onChange={handleFieldChange('username')}
+        onChange={handleFieldChange("username")}
         type="text"
         placeholder="Username"
       />
+      {errors.username && <div className="error">{errors.username}</div>}
       <input
-        onChange={handleFieldChange('password')}
+        onChange={handleFieldChange("email")}
+        type="email"
+        placeholder="Email"
+      />
+      {errors.email && <div className="error">{errors.email}</div>}
+      <input
+        onChange={handleFieldChange("password")}
         type="password"
         placeholder="Password"
       />
+      {errors.password && <div className="error">{errors.password}</div>}
       <button onClick={handleSignup}>Sign up</button>
     </div>
   );
