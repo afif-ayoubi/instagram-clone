@@ -48,7 +48,6 @@ const SignupForm = () => {
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
     } else {
-      console.log("Signing up with:", credentials);
       dispatch(signupUser(credentials)).then((result) => {
         console.log(result);
         if (result.payload.status === "success") {
@@ -88,7 +87,7 @@ const SignupForm = () => {
         {loading ? "Loading..." : "Sign up"}
       </button>
       {error && (
-        <div className="error" role="alert">
+        <div className="error">
           {" "}
           {error}
         </div>

@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import "../style.css";
+import { loginUser } from "../../../Store/UserSlice";
 
 const LoginForm = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({ email: "", password: "" });
-
+  const { loading, error } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const handleFieldChange = (fieldName) => (e) => {
     setCredentials((prevCredentials) => ({
       ...prevCredentials,
@@ -33,7 +37,12 @@ const LoginForm = () => {
     if (Object.keys(newErros).length > 0) {
       setErrors(newErros);
     } else {
-      console.log("Logging in with:", credentials);
+      dispatch(loginUser(credentials)).then((results) => {
+        if (results.payload.status === "success") {
+          console.log("User logged in successfully");
+          setCredentials({ email: "", password: "" });
+        }
+      });
     }
   };
 
@@ -56,7 +65,13 @@ const LoginForm = () => {
         onChange={handleFieldChange("password")}
       />
       {errors.password && <div className="error">{errors.password}</div>}
-      <button onClick={handleLogin}>Log in</button>
+      <button onClick={handleLogin}>{loading ? "Loading..." : "Log in"}</button>
+      {error && (
+        <div className="error" >
+          {" "}
+          {error}
+        </div>
+      )}
     </div>
   );
 };
