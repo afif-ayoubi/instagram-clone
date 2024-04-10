@@ -12,7 +12,6 @@ export const sendRequest=async ({method,route,body})=>{
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         });
-        console.log(response);
         return response;
     }catch(error){
         if(error.response && error.response.status==401){
