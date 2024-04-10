@@ -1,16 +1,19 @@
 import React, { useState } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
+import { signupUser } from "../../../Store/UserSlice";
 const SignupForm = () => {
   const [credentials, setCredentials] = useState({
     email: "",
-    username: "",
+    name: "",
     password: "",
   });
   const [errors, setErrors] = useState({
     email: "",
-    username: "",
+    name: "",
     password: "",
   });
+  const { loading, error } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const handleFieldChange = (fieldName) => (e) => {
     setCredentials((prevCredentials) => ({
       ...prevCredentials,
@@ -19,30 +22,42 @@ const SignupForm = () => {
     setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: "" }));
   };
 
-  const handleSignup = () => {
-    let formValid = true;
-    const newErrors = {};
+  const validateCredentials = (credentials) => {
+    const errors = {};
+
     if (credentials.email.trim() === "") {
-      newErrors.email = "Please enter your email.";
-      formValid = false;
+      errors.email = "Please enter your email.";
+    } else if (!credentials.email.includes("@")) {
+      errors.email = "Please enter a valid email.";
     }
-    if (!credentials.email.includes("@")) {
-      newErrors.email = "Please enter a valid email";
-      formValid = false;
+
+    if (credentials.name.trim() === "") {
+      errors.name = "Please enter your name.";
     }
-    if (credentials.username.trim() === "") {
-      newErrors.username = "Please enter your username.";
-      formValid = false;
-    }
+
     if (credentials.password.trim() === "") {
-      newErrors.password = "Please enter your password.";
-      formValid = false;
+      errors.password = "Please enter your password.";
     }
-    if (!formValid) {
+
+    return errors;
+  };
+
+  const handleSignup = (e) => {
+    e.preventDefault();
+    const newErrors = validateCredentials(credentials);
+    if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-      return;
+    } else {
+      console.log("Signing up with:", credentials);
+      dispatch(signupUser(credentials)).then((result) => {
+        console.log(result);
+        if (result.payload.status === "success") {
+          console.log("User signed up successfully");
+
+          setCredentials({ email: "", name: "", password: "" });
+        }
+      });
     }
-    console.log("Signing up with:", credentials);
   };
 
   return (
@@ -52,11 +67,11 @@ const SignupForm = () => {
         alt=""
       />
       <input
-        onChange={handleFieldChange("username")}
+        onChange={handleFieldChange("name")}
         type="text"
-        placeholder="Username"
+        placeholder="name"
       />
-      {errors.username && <div className="error">{errors.username}</div>}
+      {errors.name && <div className="error">{errors.name}</div>}
       <input
         onChange={handleFieldChange("email")}
         type="email"
@@ -69,7 +84,15 @@ const SignupForm = () => {
         placeholder="Password"
       />
       {errors.password && <div className="error">{errors.password}</div>}
-      <button onClick={handleSignup}>Sign up</button>
+      <button onClick={handleSignup}>
+        {loading ? "Loading..." : "Sign up"}
+      </button>
+      {error && (
+        <div className="error" role="alert">
+          {" "}
+          {error}
+        </div>
+      )}
     </div>
   );
 };

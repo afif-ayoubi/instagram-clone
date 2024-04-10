@@ -12,31 +12,29 @@ const LoginForm = () => {
     }));
     setErrors((prevErros) => ({ ...prevErros, [fieldName]: "" }));
   };
-
-  const handleLogin = () => {
-    let formValid = true;
-    const newErrors = {};
+  const validateCredentials = (credentials) => {
+    const erros = {};
 
     if (credentials.email.trim() === "") {
-      newErrors.email = "Please enter your email.";
-      formValid = false;
-    }
-    if (!credentials.email.includes("@")) {
-      newErrors.email = "Please enter a valid email";
-      formValid = false;
+      erros.email = "Please enter your email.";
+    } else if (!credentials.email.includes("@")) {
+      erros.email = "Please enter a valid email";
     }
 
     if (credentials.password.trim() === "") {
-      newErrors.password = "Please enter your password.";
-      formValid = false;
+      erros.password = "Please enter your password.";
     }
+    return erros;
+  };
+  const handleLogin = (e) => {
+    e.preventDefault();
 
-    if (!formValid) {
-      setErrors(newErrors);
-      return;
+    const newErros = validateCredentials(credentials);
+    if (Object.keys(newErros).length > 0) {
+      setErrors(newErros);
+    } else {
+      console.log("Logging in with:", credentials);
     }
-
-    console.log("Logging in with:", credentials);
   };
 
   return (
