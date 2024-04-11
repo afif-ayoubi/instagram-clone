@@ -28,8 +28,7 @@ const Profile = () => {
         method: requestMethods.GET,
         route: `getFollowings/${user.id}`,
       });
-      console.log(followersResponse);
-      console.log(followingsResponse);
+   
       setFollowers(followersResponse.data.data);
       setFollowings(followingsResponse.data.data);
     } catch (error) {
@@ -74,13 +73,13 @@ const Profile = () => {
             <div className="flex column">
               <button className="button">Edit Profile</button>
               <div className="followers">
-                <span> 2</span> followers
+                <span> {followers.length}</span> followers
               </div>
             </div>
             <div>
               <button className="button">View archive</button>
               <div className="following">
-                <span> 2</span> following
+                <span> {followings.length}</span> following
               </div>
             </div>
           </div>

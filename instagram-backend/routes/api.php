@@ -25,8 +25,8 @@ Route::post('register', [AuthController::class, 'register']);
 Route::middleware('auth:api')->group(function () {
     
     Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('getFollowings/{userId}', [AuthController::class, 'getFollowings']);
-    Route::post('getFollowers/{userId}', [AuthController::class, 'getFollowers']);
+    Route::get('getFollowings/{userId}', [AuthController::class, 'getFollowings']);
+    Route::get('getFollowers/{userId}', [AuthController::class, 'getFollowers']);
     Route::post('post', [PostController::class, 'add']);
     Route::get('getFollowingPosts/{userId}', [PostController::class, 'getFollowingPosts']);
     Route::get('getUserPosts/{userId}', [PostController::class, 'getUserPosts']);
