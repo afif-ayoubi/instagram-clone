@@ -49,17 +49,7 @@ const SideNav = () => {
           <AddCircleOutlineIcon />
           <span>Create</span>
         </button>
-        {/* <button className="sidenav__button">
-          <Avatar>
-            {user.username ? user.username.charAt(0).toUpperCase() : "A"}
-          </Avatar>
-          <span>
-            {user.username}{" "}
-            <button onClick={handelLogout} className="logout__button">
-              Logout
-            </button>
-          </span>
-        </button> */}
+     
       </div>
       <div className="sidenav__more">
         <button className="sidenav__button">

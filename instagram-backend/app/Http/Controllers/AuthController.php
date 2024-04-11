@@ -202,8 +202,8 @@ class AuthController extends Controller
             $followedUsers = $user->following()->pluck('id')->toArray;
 
             $secondLevelFollowedUsers = User::whereIn('id', $followedUsers)
-                ->whereNotIn('id', $user->following()->pluck('id'))
-                ->pluck('id');
+            ->whereNotIn('id', $user->following()->pluck('id'))
+            ->pluck('id');
 
             $recommendations = User::whereIn('id', $secondLevelFollowedUsers)
                 ->whereNotIn('id', $user->following()->pluck('id'))
