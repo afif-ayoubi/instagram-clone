@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import {useNavigate} from 'react-router-dom'
 import "../style.css";
 import { loginUser } from "../../../Store/UserSlice";
 
@@ -9,6 +9,7 @@ const LoginForm = () => {
   const [errors, setErrors] = useState({ email: "", password: "" });
   const { loading, error } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleFieldChange = (fieldName) => (e) => {
     setCredentials((prevCredentials) => ({
       ...prevCredentials,
@@ -17,18 +18,18 @@ const LoginForm = () => {
     setErrors((prevErros) => ({ ...prevErros, [fieldName]: "" }));
   };
   const validateCredentials = (credentials) => {
-    const erros = {};
+    const errors = {};
 
     if (credentials.email.trim() === "") {
-      erros.email = "Please enter your email.";
+      errors.email = "Please enter your email.";
     } else if (!credentials.email.includes("@")) {
-      erros.email = "Please enter a valid email";
+      errors.email = "Please enter a valid email";
     }
 
     if (credentials.password.trim() === "") {
-      erros.password = "Please enter your password.";
+      errors.password = "Please enter your password.";
     }
-    return erros;
+    return errors;
   };
   const handleLogin = (e) => {
     e.preventDefault();
@@ -41,10 +42,14 @@ const LoginForm = () => {
         if (results.payload.status === "success") {
           console.log("User logged in successfully");
           setCredentials({ email: "", password: "" });
-        }
+          navigate('/home');
+        } 
+      })
+      .catch((error) => {
+       
       });
-    }
-  };
+  }
+};
 
   return (
     <div className="login">

@@ -13,7 +13,7 @@ export const signupUser = createAsyncThunk(
       });
       if (resp.data.status === "success") {
         localStorage.setItem("token", resp.data.authorisation.token);
-        return resp.data.user;
+        return resp.data;
       } 
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -31,7 +31,7 @@ export const loginUser = createAsyncThunk(
         });
         if (resp.data.status === "success") {
           localStorage.setItem("token", resp.data.authorisation.token);
-          return resp.data.user;
+          return resp.data;
         }
       } catch (error) {
         return rejectWithValue(error.response.data);
@@ -54,7 +54,7 @@ const userSlice = createSlice({
       })
       .addCase(signupUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
+        state.user = action.payload.user;
         state.error = null;
       })
       .addCase(signupUser.rejected, (state, action) => {
@@ -73,7 +73,7 @@ const userSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
+        state.user = action.payload.user;
         state.error = null;
       })
       .addCase(loginUser.rejected, (state, action) => {

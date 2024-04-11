@@ -46,13 +46,13 @@ const Profile = () => {
               </div>
             </div>
             <div>
-              <button>Edit Profile</button>
+              <button className="button">Edit Profile</button>
               <div className="followers">
                 <span> 2</span> followers
               </div>
             </div>
             <div>
-              <button>View archive</button>
+              <button className="button">View archive</button>
               <div className="following">
                 <span> 2</span> following
               </div>

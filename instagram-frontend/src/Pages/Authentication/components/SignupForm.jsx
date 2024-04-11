@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signupUser } from "../../../Store/UserSlice";
+import { useNavigate } from "react-router-dom";
+
 const SignupForm = () => {
   const [credentials, setCredentials] = useState({
     email: "",
@@ -12,6 +14,8 @@ const SignupForm = () => {
     name: "",
     password: "",
   });
+  const navigate = useNavigate();
+
   const { loading, error } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const handleFieldChange = (fieldName) => (e) => {
@@ -48,14 +52,17 @@ const SignupForm = () => {
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
     } else {
-      dispatch(signupUser(credentials)).then((result) => {
-        console.log(result);
-        if (result.payload.status === "success") {
-          console.log("User signed up successfully");
+      dispatch(signupUser(credentials))
+        .then((result) => {
+          console.log(result);
+          if (result.payload.status === "success") {
+            console.log("User signed up successfully");
 
-          setCredentials({ email: "", name: "", password: "" });
-        }
-      });
+            setCredentials({ email: "", name: "", password: "" });
+            navigate("/home");
+          }
+        })
+        .catch((error) => {});
     }
   };
 
@@ -86,12 +93,7 @@ const SignupForm = () => {
       <button onClick={handleSignup}>
         {loading ? "Loading..." : "Sign up"}
       </button>
-      {error && (
-        <div className="error">
-          {" "}
-          {error}
-        </div>
-      )}
+      {error && <div className="error"> {error}</div>}
     </div>
   );
 };

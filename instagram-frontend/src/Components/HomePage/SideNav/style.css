@@ -21,6 +21,7 @@
     flex-direction: row;
     align-items: center;
     color: white;
+    border: 0;
     background: 0;
     margin: 5px 10px 5px 10px;
     padding: 10px 15px 10px 15px;
