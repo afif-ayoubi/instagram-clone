@@ -118,4 +118,106 @@ class AuthController extends Controller
             ], 500);
         }
     }
+    public function followUser($followerId, $followingId)
+    {
+        try {
+            $follower = User::find($followerId);
+            $following = User::find($followingId);
+
+            if (!$follower || !$following) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'User not found'
+                ], 404);
+            }
+
+            if ($follower->following()->where('id', $followingId)->exists()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'User already followed'
+                ], 400);
+            }
+
+            $follower->following()->attach($followingId);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'User followed successfully'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function unfollowUser($followerId, $followingId)
+    {
+        try {
+            $follower = User::find($followerId);
+            $following = User::find($followingId);
+
+            if (!$follower || !$following) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'User not found'
+                ], 404);
+            }
+
+            if (!$follower->following()->where('id', $followingId)->exists()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'User not followed'
+                ], 400);
+            }
+
+            $follower->following()->detach($followingId);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'User unfollowed successfully'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function getRecommendations($userId)
+    {
+        try {
+
+            $user = User::find($userId);
+
+            if (!$user) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'User not found'
+                ], 404);
+            }
+
+            $followedUsers = $user->following()->pluck('id')->toArray;
+
+            $secondLevelFollowedUsers = User::whereIn('id', $followedUsers)
+                ->whereNotIn('id', $user->following()->pluck('id'))
+                ->pluck('id');
+
+            $recommendations = User::whereIn('id', $secondLevelFollowedUsers)
+                ->whereNotIn('id', $user->following()->pluck('id'))
+                ->get();
+
+            return response()->json([
+                'status' => 'success',
+                'recommendations' => $recommendations
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
