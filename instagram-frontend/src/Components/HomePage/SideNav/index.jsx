@@ -8,10 +8,15 @@ import ChatIcon from "@mui/icons-material/Chat";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import MenuIcon from "@mui/icons-material/Menu";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useNavigate } from "react-router-dom";
+
 const SideNav = () => {
   const handelLogout = () => {
     console.log("Logout");
   };
+  const navigate = useNavigate();
+
   return (
     <div className="sidenav">
       <img
@@ -49,7 +54,11 @@ const SideNav = () => {
           <AddCircleOutlineIcon />
           <span>Create</span>
         </button>
-     
+
+        <button onClick={()=>navigate("/profile")} className="sidenav__button">
+          <AccountCircleIcon />
+          <span>Profile</span>
+        </button>
       </div>
       <div className="sidenav__more">
         <button className="sidenav__button">

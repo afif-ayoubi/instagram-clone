@@ -30,7 +30,7 @@ class PostController extends Controller
             'image' => 'required|string',
         ]);
     }
-    public function followingPosts($userId)
+    public function getFollowingPosts($userId)
     {
         try {
             $user = User::find($userId);
@@ -44,4 +44,22 @@ class PostController extends Controller
             return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
         }
     }
+    public function getUserPosts($userId)
+    {
+        try {
+            $user = User::find($userId);
+
+            if (!$user) {
+                return response()->json(['status' => 'error', 'message' => 'User not found'], 404);
+            }
+
+            $posts = Post::where('user_id', $userId)->get();
+
+            return response()->json(['status' => 'success', 'data' => $posts], 200);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
+        }
+    }
+
 }
+

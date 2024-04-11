@@ -220,4 +220,56 @@ class AuthController extends Controller
             ], 500);
         }
     }
+    public function getFollowers($userId)
+    {
+        try {
+            $user = User::find($userId);
+    
+            if (!$user) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'User not found'
+                ], 404);
+            }
+    
+            $followers = $user->followers()->get();
+    
+            return response()->json([
+                'status' => 'success',
+                'data' => $followers
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+    
+    public function getFollowings($userId)
+    {
+        try {
+            $user = User::find($userId);
+    
+            if (!$user) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'User not found'
+                ], 404);
+            }
+    
+            $followings = $user->following()->get();
+    
+            return response()->json([
+                'status' => 'success',
+                'data' => $followings
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+    
 }

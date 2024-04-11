@@ -1,14 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SideNav from "../../Components/HomePage/SideNav";
 import "./style.css";
-import { useDispatch, useSelector } from "react-redux";
+import { sendRequest } from "../../Core/tools/request";
+import { requestMethods } from "../../Core/Enums/requestMethods";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const { user } = useSelector((state) => state.user);
+  const [followers, setFollowers] = useState([]);
+  const [followings, setFollowings] = useState([]);
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setSelectedImage(file);
+  };
+  useEffect(() => {
+    fetchData();
+  }, [user.id]);
+  const fetchData = async () => {
+    try {
+      const followersResponse = await sendRequest({
+        method: requestMethods.GET,
+        route: `getFollowers/${user.id}`,
+      });
+
+      const followingsResponse = await sendRequest({
+        method: requestMethods.GET,
+        route: `getFollowings/${user.id}`,
+      });
+      console.log(followersResponse);
+      console.log(followingsResponse);
+      setFollowers(followersResponse.data.data);
+      setFollowings(followingsResponse.data.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -40,12 +66,12 @@ const Profile = () => {
           </label>
           <div className="flex section ">
             <div className="flex column first-column">
-              <div className="user-name"> afifayoubi</div>
+              <div className="user-name"> {user.name}</div>
               <div className="post-number">
                 <span> 2</span> posts
               </div>
             </div>
-            <div>
+            <div className="flex column">
               <button className="button">Edit Profile</button>
               <div className="followers">
                 <span> 2</span> followers

@@ -51,12 +51,13 @@
 .post-number {
   margin-top: 50px;
 }
- .span{
+ span{
     font-weight: bolder;
     
 }
 .followers{
     margin-top: 43.5px;
+    margin-left: 20px;
 
 }
 .following{
